@@ -5,8 +5,8 @@ from flask_jwt_extended import jwt_required
 
 from app.extensions import db
 from app.reports import bp
-from app.reports.activities.agents import agentActivitiesReport
-from app.reports.activities.overall import overallActivitiesReport
+from app.reports.activities.agentActivitiesReport import agentActivitiesReport
+from app.reports.activities.overallActivitiesReport import overallActivitiesReport
 
 
 # store data

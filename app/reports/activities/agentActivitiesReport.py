@@ -4,6 +4,7 @@ from flask import request, jsonify
 
 from app import db
 from app.reports.generate_report import generate_agents_report
+from app.services.validator import validateInputs
 
 
 def agentActivitiesReport():
@@ -12,12 +13,7 @@ def agentActivitiesReport():
 
     # Check for mandatory fields
     required_fields = ["subdomain_id", "start_date", "end_date"]
-    if any(field not in request_data for field in required_fields):
-        # If any mandatory field is missing, return an error response
-        return jsonify({
-            "status": False,
-            "message": f"Request data must include {', '.join(required_fields)}."
-        }), 422
+    validateInputs(request_data, required_fields)
 
     try:
         # Extract data from the request and convert dates

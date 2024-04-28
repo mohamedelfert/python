@@ -4,6 +4,7 @@ from flask import request, jsonify
 
 from app import db
 from app.reports.generate_report import generate_chart_report
+from app.services.validator import validateInputs
 
 
 def overallActivitiesReport():
@@ -12,11 +13,7 @@ def overallActivitiesReport():
 
     # Check for mandatory fields
     required_fields = ["charts", "subdomain_id", "start_date", "end_date"]
-    if any(field not in request_data for field in required_fields):
-        return jsonify({
-            "status": False,
-            "message": f"Request data must include {', '.join(required_fields)}."
-        }), 422
+    validateInputs(request_data, required_fields)
 
     # Convert dates and handle invalid format
     try:
