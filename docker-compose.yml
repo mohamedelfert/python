@@ -1,0 +1,38 @@
+services:
+  app:
+    container_name: flask
+    build: .
+    command: flask run
+    restart: unless-stopped
+    environment:
+      APP_ENV: "prod"
+      APP_DEBUG: "True"
+      APP_PORT: 4000
+      MONGODB_DATABASE: reports_engine
+      MONGODB_USERNAME: root
+      MONGODB_PASSWORD: pass
+      MONGODB_HOSTNAME: mongodb
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/app
+    links:
+      - db
+  db:
+    container_name: mongodb
+    image: mongo:latest
+    hostname: mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: reports_engine
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pass
+      MONGODB_DATA_DIR: /data/db
+      MONDODB_LOG_DIR: /dev/null
+    volumes:
+      - mongodbdata:/data/db
+      - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
+    ports:
+      - 27017:27017
+volumes:
+  mongodbdata:

@@ -1,0 +1,5 @@
+python-dotenv
+flask
+pymongo
+flask-jwt-extended
+requests
