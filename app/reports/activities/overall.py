@@ -6,7 +6,7 @@ from app import db
 from app.reports.generate_report import generate_chart_report
 
 
-def overall():
+def overallActivitiesReport():
     # Get request data
     request_data = request.get_json()
 

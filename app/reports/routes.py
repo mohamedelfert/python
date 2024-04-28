@@ -5,8 +5,9 @@ from flask_jwt_extended import jwt_required
 
 from app.extensions import db
 from app.reports import bp
-from app.reports.activities.agents import report
-from app.reports.activities.overall import overall
+from app.reports.activities.agents import agentActivitiesReport
+from app.reports.activities.overall import overallActivitiesReport
+
 
 # store data
 @bp.route('/store-update', methods=["POST"])
@@ -88,14 +89,14 @@ def store_update():
 @bp.route('/overall-activities', methods=["POST"])
 @jwt_required()
 def overall_activities():
-    return jsonify(overall())
+    return jsonify(overallActivitiesReport())
 
 
 # agents report
 @bp.route('/agents-report', methods=["POST"])
 @jwt_required()
 def agents_report():
-    return jsonify(report())
+    return jsonify(agentActivitiesReport())
 
 # @bp.route('/report', methods=["POST"])
 # @jwt_required()

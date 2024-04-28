@@ -6,7 +6,7 @@ from app import db
 from app.reports.generate_report import generate_agents_report
 
 
-def report():
+def agentActivitiesReport():
     # Get request data
     request_data = request.get_json()
 
