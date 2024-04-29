@@ -4,7 +4,7 @@ from flask import request, jsonify
 
 from app import db
 from app.reports.generate_report import generate_chart_report
-from app.services.validator import validateInputs
+from app.services.validator import validateRequestInputs
 
 
 def overallActivitiesReport():
@@ -13,20 +13,16 @@ def overallActivitiesReport():
 
     # Check for mandatory fields
     required_fields = ["charts", "subdomain_id", "start_date", "end_date"]
-    validateInputs(request_data, required_fields)
+    validation_result = validateRequestInputs(request_data, required_fields)
 
-    # Convert dates and handle invalid format
-    try:
-        subdomain_id = request_data["subdomain_id"]
-        start_date = datetime.strptime(request_data["start_date"], '%Y-%m-%d')
-        end_date = datetime.strptime(request_data["end_date"], '%Y-%m-%d')
-    except ValueError:
-        return jsonify({
-            "status": False,
-            "message": "Invalid date format. Use 'YYYY-MM-DD'."
-        }), 422
+    # Check if validation failed
+    if isinstance(validation_result, tuple):
+        start_date, end_date = validation_result
+    else:
+        return validation_result
 
-    # Extract user_ids and charts from the request data
+    # Extract subdomain_id and user_ids and charts from the request data
+    subdomain_id = request_data["subdomain_id"]
     users_ids = request_data.get('users_ids', [])
     charts = request_data.get('charts', [])
 
@@ -38,6 +34,7 @@ def overallActivitiesReport():
         },
         "SubdomainId": subdomain_id,
     }
+
     if users_ids:
         criteria["UserId"] = {"$in": users_ids}
 
@@ -53,6 +50,7 @@ def overallActivitiesReport():
         "scheduled_meetings": ["scheduled_meetings"],
         "created_tens": ["task", "events", "note"]
     }
+
     totals = {
         category: {
             item: 0 for item in items
