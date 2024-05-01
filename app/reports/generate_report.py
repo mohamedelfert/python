@@ -29,9 +29,12 @@ def generate_agents_report(total_figures):
     values = [total_figures[label] for label in labels]
 
     # Return data in the required format for generating a report
-    return {
-        "datasets": {
-            "labels": labels,
-            "values": values
-        }
-    }
+    report = []
+    for label, value in zip(labels, values):
+        report.append(
+            {
+                "label": label,
+                "value": value
+            }
+        )
+    return report

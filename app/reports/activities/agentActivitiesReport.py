@@ -73,11 +73,7 @@ def agentActivitiesReport():
         reports[user_id] = report_data["data"]
 
     # Return all generated reports for each user_id
-    return {
-        "data": reports,
-        "message": "Retrieved all reports successfully.",
-        "status": True
-    }
+    return reports
 
 
 def generate_reports(total_figures):
