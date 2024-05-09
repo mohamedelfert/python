@@ -7,6 +7,7 @@ from app.extensions import db
 from app.reports import bp
 from app.reports.activities.agentActivitiesReport import agentActivitiesReport
 from app.reports.activities.overallActivitiesReport import overallActivitiesReport
+from app.reports.activities.performanceActivitiesReport import performanceActivitiesReport
 
 
 # store data
@@ -97,6 +98,13 @@ def overall_activities():
 @jwt_required()
 def agents_report():
     return jsonify(agentActivitiesReport())
+
+
+# performance report
+@bp.route('/performance-report', methods=["POST"])
+@jwt_required()
+def performance_report():
+    return jsonify(performanceActivitiesReport())
 
 # @bp.route('/report', methods=["POST"])
 # @jwt_required()
