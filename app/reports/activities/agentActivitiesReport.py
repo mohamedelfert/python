@@ -66,6 +66,9 @@ def agentActivitiesReport():
                         # Otherwise, initialize it in the dictionary
                         total_figures[figure_name] = figure_value
 
+                    if figure_name == "a_g_m":
+                        break
+
         # Generate report for this user_id based on the calculated totals
         report_data = generate_reports(total_figures)
 
