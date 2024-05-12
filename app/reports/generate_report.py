@@ -38,3 +38,40 @@ def generate_agents_report(total_figures):
             }
         )
     return report
+
+
+def generate_meetings_report(users_ids, agents, total_figures, total):
+    # Prepare the datasets for the doughnut chart "By Agents"
+    datasets_agents = {
+        "backgroundColor": ["red", "green"],
+        "data": [
+            sum(users_ids[agent_id][label] for label in ["outside", "inhouse", "online"]) for agent_id in agents
+        ],
+        "labels": agents
+    }
+
+    # Prepare the datasets for the doughnut chart "By Types"
+    datasets_type = {
+        "backgroundColor": ["red", "green"],
+        "data": [total_figures[label] for label in ["outside", "inhouse", "online"]],
+        "labels": ["outside", "inhouse", "online"]
+    }
+
+    # Return the response with the generated datasets
+    return {
+        "data": [
+            {
+                "datasets": datasets_agents,
+                "subtitle": "By Agents",
+                "title": "Meetings",
+                "type": "doughnut"
+            },
+            {
+                "datasets": datasets_type,
+                "subtitle": "Meetings",
+                "title": "By Type",
+                "type": "doughnut"
+            },
+            {"Total": total}
+        ]
+    }

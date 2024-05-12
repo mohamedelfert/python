@@ -8,6 +8,8 @@ from app.reports import bp
 from app.reports.activities.agentActivitiesReport import agentActivitiesReport
 from app.reports.activities.overallActivitiesReport import overallActivitiesReport
 from app.reports.activities.performanceActivitiesReport import performanceActivitiesReport
+from app.reports.meetings.meetingsOverallReport import meetingsOverallReport
+from app.reports.meetings.meetingsReport import meetingsReport
 
 
 # store data
@@ -105,6 +107,19 @@ def agents_report():
 @jwt_required()
 def performance_report():
     return jsonify(performanceActivitiesReport())
+
+
+# meetings overall report
+@bp.route('/meetings-overall', methods=["POST"])
+@jwt_required()
+def meetings_overall():
+    return jsonify(meetingsOverallReport())
+
+# meetings report
+@bp.route('/meetings', methods=["POST"])
+@jwt_required()
+def meetings():
+    return jsonify(meetingsReport())
 
 # @bp.route('/report', methods=["POST"])
 # @jwt_required()
