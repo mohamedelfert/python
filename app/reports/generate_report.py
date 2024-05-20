@@ -12,6 +12,12 @@ def generate_chart_report(data, chart):
         "created_tens": ("doughnut", "Created TENs", "Total Created Tasks, Events, Notes"),
         "type": ("doughnut", "Scheduled Meetings", "By Type"),
         "status": ("doughnut", "Scheduled Meetings", "By Status"),
+        "stage": ("doughnut", "Leads By Stage", ""),
+        "source": ("doughnut", "Leads By Source", ""),
+        "interest": ("doughnut", "Leads By Interest", ""),
+        "tag": ("doughnut", "Leads By Tag", ""),
+        "rating": ("doughnut", "Leads By Rating", ""),
+        "contact_method": ("doughnut", "Leads By Contact Method", ""),
     }
 
     # Check if the chart type is recognized

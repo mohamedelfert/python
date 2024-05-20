@@ -13,7 +13,7 @@ services:
       MONGODB_PASSWORD: pass
       MONGODB_HOSTNAME: mongodb
     ports:
-      - "4000:4000"
+      - "81:4000"
     volumes:
       - .:/app
     links:
